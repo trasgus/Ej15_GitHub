@@ -1,0 +1,122 @@
+/*reseteo*/
+/*Lo del reseteo es para poner lo que queramos, cambiar las condiciones
+predefinidas del navegador*/
+*{
+	/*border: 0;*/
+	margin: 0;
+	padding:0;
+}
+
+/*vamos a font squirrel escogemos fuente gratis(poniendo cursor sobre el
+	icono de ordenador) y descargamos con dowload. Luego en pestaña webgerator
+damos a upload y buscamos nuestra fuente (una vez que la hemos descomprimido)
+El archivo que subimos debe se el tff borrando el license es solo un txt */
+
+
+@font-face {
+    font-family: 'amadeus_regularamadeusRg';
+    src: url('../fuentes/amadeus/Amadeus-webfont.eot');
+    src: url('../fuentes/amadeus/Amadeus-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fuentes/amadeus/Amadeus-webfont.woff2') format('woff2'),
+         url('../fuentes/amadeus/Amadeus-webfont.woff') format('woff'),
+         url('../fuentes/amadeus/Amadeus-webfont.ttf') format('truetype'),
+         url('../fuentes/amadeus/Amadeus-webfont.svg#amadeus_regularamadeusRg') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/*primero q vamos a hacer son los elementos, estilos para los elementos html*/
+/*****************************/
+body{
+	background: rgb(220, 220, 220);
+	/*en rgg va entre ( y separados por , con los tres valores*/
+	border: 0.1em solid #000000;
+	border-radius: .5em;
+	color:#000000; /*ya lo tiene propio ese color, pero lo ponemos*/
+	font-family: "amadeus_regularamadeusRg", "Calibri", Helvetica, Arial;
+	/*margin: 0 auto centramos el body*/
+	margin: 0 auto;
+	width: 80%;
+}
+h1{
+	font-size: 1.5em;
+	margin-left: .5em;
+	text-shadow: 2px 2px 2px rgba(70, 70, 70, .9);
+/*text-shadow es para el sombreado, estos valores no llevan ,*/
+}
+/*ahora hacemos el formulario porque es el siguiente elemento html, luego
+iremos a los id*/
+form {
+	border: 0.1em solid #000000;
+	border-radius: .5em;
+	/*el .5em es como si pusieramos 0.5em*/
+	margin bottom: 5em;
+	margin left: .5em;
+	padding-left: .5em;
+	width: 40%;
+	box-shadow: 3px 3px 2px rgba(70, 70, 70, .9);
+	/*sombra a la caja con box-shadow*/
+	text-shadow: 2px 2px 2px rgba(70, 70, 70, .9)
+} 
+/*input es un elemento*/
+/*input[type="text"], input[type="password"], input[type="email"]
+border-radius:.5em;*/
+
+input, textarea{
+	/*me cambia los input y el textarea*/
+	background: #D4FEFF;
+	border-radius: .3em;
+	color:#0601A6;
+	font-family: Arial;
+	font-size: .7em;
+} 
+/*no dejamos espacio entre input:focus, textarea:focus no dejamos espacio
+entre input:focus*/
+input:focus, textarea:focus{
+	background: #9CFEFF;
+	/*color del fondo de la caja se oscurece un poquito con input:focus
+	textarea:focus*/
+}
+/*cambio los botones */
+input[type="submit"], input[type="reset"]{
+	background:#FFFE9C;
+}
+/*aplicamos los estilos con el id correspondiente, es decir #enviar:hover,
+borrar:hover input[type"sublim   ]*/
+/*input[type="submit"]:hover, input[type="reset"]:hover{
+	background:#CBCA66;
+	border-radius: ,3em;*/
+}
+textarea {
+	background: #D4FEFF;
+	resize: none;
+	/*resize: none, para no poder alargar la caja*/
+}
+
+/*Estilos para identificadores html*/
+/*************************************/
+/*accedo con # al formulario*/
+#formulario{
+/*#formulario es para ir al identificador id="formulario"*/
+/*	border: 0.1em solid #000000;*/
+}
+.elemento{
+	margin-left: 3em;
+	margin-bottom: 1em;
+
+}
+/*cambiamos el estado de los botones #enviar:hover,#borrar:hover seria# pq 
+es un identificador*/
+#enviar:hover, #borrar:hover {
+	background:#CBCA66;
+	border-radius: 3em;
+}
+/*Estilos para clases HTML*/
+.mano{
+/*.mano es para ir a la clase="mano"*/
+	cursor: pointer;
+/*para que nos salga la manita en el campo con cursor: pointer*/
+}
+.texto {
+	margin-top: .5em;
+}
