@@ -8,7 +8,7 @@
  <link rel="stylesheet" href="../css/estilos_formulario.css" />
 </head>
 <body>
-<form method="get" action="#" name="buscarPorNombre"> 
+<form method="get" action="/Ej15_GitHub/Tienda/buscarPorNombre" name="buscarPorNombre"> 
 <!-- enlace con # se queda en la misma página -->
     <fieldset>
     <label>Nombre:</label>
