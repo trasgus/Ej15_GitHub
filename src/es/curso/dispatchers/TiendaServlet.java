@@ -1,11 +1,16 @@
 package es.curso.dispatchers;
 
 import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import es.curso.controllers.ejb.DarAltaClienteControllerEjb;
+import es.curso.model.entity.Cliente;
 
 /**
  * Servlet implementation class TiendaServlet
@@ -26,14 +31,48 @@ public class TiendaServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		// TODO se recupera en el request
+		//en action tengo listarTodos o consultarNombre que son las q tienen servlet
+		String action = request.getPathInfo().substring(1);
+		request.setCharacterEncoding("UTF-8");
+		switch(action){
+			case "listarTodos":  //se invocará al controllador adecuado que obtendrá todos los clientes
+				                 //Esta petición nos redirige a otra página
+				break;
+			case "buscarPorNombre": //se invocará al controlador que haga la consulta por nombre,
+				                   //que obtendrá solo los clientes que coincidan con el nombre buscado
+				                  //esta petición redirige a otra página
+				break;
+		}
+		
+		//tengo que redirigir hacia una vista jsp para mostrar los clientes
+		RequestDispatcher rd; //importo
+		//de alguna manera hay que enviarle a la vista el resultado de la consulta a la base de datos
+		rd = request.getRequestDispatcher("listarTodos.jsp"); //le digo la vista que quiero mostrar
+		rd.forward(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		String action = request.getPathInfo().substring(1);
+		request.setCharacterEncoding("UTF-8");
+		switch(action){
+		case"altaCliente": // recuperar los datos tecleados en el formulario
+							String nombre = request.getParameter("nombre");
+							String apellido = request.getParameter("apellido");
+							String dni = request.getParameter("dni");
+							Cliente cliente = new Cliente(0,nombre, apellido, dni);
+							//invocará al controlador adecuado
+							DarAltaClienteControllerEjb controlador=new DarAltaClienteControllerEjb();
+							controlador.agregar(cliente);
+							break;
+			
+			
+			
+			
+		}
 	}
 
 }

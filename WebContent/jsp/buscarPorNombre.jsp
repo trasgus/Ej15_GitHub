@@ -8,7 +8,7 @@
  <link rel="stylesheet" href="../css/estilos_formulario.css" />
 </head>
 <body>
-<!-- "${pageContext.request.contexPath}" es para justituir Ej15_GitHub -->
+
 <form method="get" action="${pageContext.request.contextPath}/Tienda/buscarPorNombre" name="buscarPorNombre"> 
 <!-- enlace con # se queda en la misma página -->
     <fieldset>
