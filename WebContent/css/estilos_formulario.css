@@ -87,6 +87,18 @@ borrar:hover input[type"sublim   ]*/
 	background:#CBCA66;
 	border-radius: ,3em;*/
 }
+table{
+	border: 1 px solid blue;
+	padding: 3 px;
+}
+th{
+	color:white;
+}
+td, th{
+	border: 1 px solid blue;
+	padding: 3px;
+	width:10%;
+}
 textarea {
 	background: #D4FEFF;
 	resize: none;
