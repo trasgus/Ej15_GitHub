@@ -95,6 +95,7 @@ borrar:hover input[type"sublim   ]*/
 }
 table{
 	border: 1 px solid blue;
+	margin: 0 auto;
 	padding: 3 px;
 }
 th{

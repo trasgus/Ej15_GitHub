@@ -36,6 +36,21 @@
             <th>Apellido</th>
             <th>DNI:</th>
         </tr>
+        <% for (Cliente c: clientes){ %>  <!-- ABRO EL FOR  El for es para recorrer el ArrayList pq la tabla es dinámica -->
+            <tr>
+                <td><%= c.getId() %></td>
+                <td><%= c.getNombres() %></td> <!-- con la referencia c imprime Nombres -->
+                <td><%= c.getApellidos() %></td>
+                <td><%= c.getDni() %></td>
+            </tr>
+        
+        
+        
+        <% } %> <!-- CIERRO EL FOR . Cierra la } de esa manera pq es jsp-->
+        
+       
+   <%--   Imprimo la variable clientes, imprimiría todo el ArrayList   <%= clientes %>   
+          este es el estilo de comentario de jsp --%>
  <!-- Las siguiente tr se construyen dinámicamente, usando instrucciones java embebidas
       la cabecera que es la anterior no es dinámica, es fija -->
     </table>

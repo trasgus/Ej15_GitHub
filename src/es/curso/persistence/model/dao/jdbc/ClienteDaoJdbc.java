@@ -5,9 +5,15 @@ import java.util.ArrayList;
 import es.curso.model.entity.Cliente;
 import es.curso.persistence.model.dao.ClienteDao;
 
-public class ClienteDaoJdbc implements ClienteDao{  
+public class ClienteDaoJdbc implements ClienteDao{ 
+	private ArrayList<Cliente> clientes;
 
-	
+
+	public ClienteDaoJdbc() {  // Creo constructor vacio y le meto el arrayList para q se conserve en la memoria y también clientes
+		super();
+		clientes= new ArrayList<Cliente>();
+	}
+
 	//Enlazo lenguaje java con sql
 	@Override
 	public void create(Cliente cliente) {
@@ -21,7 +27,7 @@ public class ClienteDaoJdbc implements ClienteDao{
 
 	@Override
 	public ArrayList<Cliente> findAll() {
-		ArrayList<Cliente> clientes= new ArrayList<Cliente>();
+	
 		clientes.add(new Cliente(1, "José", "Pérez", "1234D"));
 		clientes.add(new Cliente(2, "María", "Cáceres", "65657E"));
 		clientes.add(new Cliente(3, "Rosa", "Martínez", "888"));
