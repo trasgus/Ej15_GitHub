@@ -27,6 +27,12 @@ El archivo que subimos debe se el tff borrando el license es solo un txt */
 
 /*primero q vamos a hacer son los elementos, estilos para los elementos html*/
 /*****************************/
+a{
+/* 	para que me los ajuste abajo */
+	display: block; 
+	text-decoration: none;
+	padding: 1em;
+}
 body{
 	background: rgb(220, 220, 220);
 	/*en rgg va entre ( y separados por , con los tres valores*/

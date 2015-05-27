@@ -48,7 +48,7 @@ public class TiendaServlet extends HttpServlet {
 		//tengo que redirigir hacia una vista jsp para mostrar los clientes
 		RequestDispatcher rd; //importo
 		//de alguna manera hay que enviarle a la vista el resultado de la consulta a la base de datos
-		rd = request.getRequestDispatcher("listarTodos.jsp"); //le digo la vista que quiero mostrar
+		rd = request.getRequestDispatcher("/jsp/listarTodos.jsp"); //le digo la vista que quiero mostrar
 		rd.forward(request, response);
 	}
 

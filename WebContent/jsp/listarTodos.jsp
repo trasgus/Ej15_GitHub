@@ -5,7 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Listado de Cliente</title>
- <link rel="stylesheet" href="css/estilos_formulario.css" />
+ <link rel="stylesheet" href="../css/estilos_formulario.css" />
 </head>
 <body>
     <!-- Tabla html dinámicamente -->
