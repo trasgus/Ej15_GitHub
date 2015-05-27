@@ -1,9 +1,11 @@
 package es.curso.persistence.model.dao.jdbc;
 
+import java.util.ArrayList;
+
 import es.curso.model.entity.Cliente;
 import es.curso.persistence.model.dao.ClienteDao;
 
-public class ClienteDaoJdbc implements ClienteDao{
+public class ClienteDaoJdbc implements ClienteDao{  
 
 	
 	//Enlazo lenguaje java con sql
@@ -15,6 +17,22 @@ public class ClienteDaoJdbc implements ClienteDao{
 		  3. Ejecutar la sentencia -sql- 
 		  4. Cerrar la conexión     */
 		
+	}
+
+	@Override
+	public ArrayList<Cliente> findAll() {
+		ArrayList<Cliente> clientes= new ArrayList<Cliente>();
+		clientes.add(new Cliente(1, "José", "Pérez", "1234D"));
+		clientes.add(new Cliente(2, "María", "Cáceres", "65657E"));
+		clientes.add(new Cliente(3, "Rosa", "Martínez", "888"));
+		clientes.add(new Cliente(4, "Rafaél", "Rodriguez", "888H"));
+		clientes.add(new Cliente(5, "Almudena", "García", "76767G"));
+		clientes.add(new Cliente(6, "Oscar", "Peñalver", "7373k"));
+		clientes.add(new Cliente(7, "Teresa", "Jiménez", "7373R"));
+		
+		
+		
+		return clientes;
 	}
 
 }
