@@ -34,7 +34,7 @@
             <th>ID:</th>
             <th>Nombre</th>
             <th>Apellido</th>
-            <th>DNI:</th>
+            <th>DNI</th>
         </tr>
         <% for (Cliente c: clientes){ %>  <!-- ABRO EL FOR  El for es para recorrer el ArrayList pq la tabla es dinámica -->
             <tr>

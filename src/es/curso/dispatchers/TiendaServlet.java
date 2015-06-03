@@ -38,7 +38,7 @@ public class TiendaServlet extends HttpServlet {
 		String action = request.getPathInfo().substring(1);
 		request.setCharacterEncoding("UTF-8");
 		String titulo = "sin título";
-		
+		RequestDispatcher rd; //importo
 		switch(action){
 			case "listarTodos":  //se invocará al controllador adecuado que obtendrá todos los clientes
 				                 //Esta petición nos redirige a otra página
@@ -46,26 +46,24 @@ public class TiendaServlet extends HttpServlet {
 				ListarTodosControllerEjb todos= new ListarTodosControllerEjb();
 				ArrayList<Cliente> clientes=todos.listarTodos();
 				request.setAttribute("clientes", clientes); //se va todo el ArrayList en el objeto request
-				todos.listarTodos(); //este método devuelve un ArrayList de cliente
+				
 				titulo= "Listado general de clientes";
+				request.setAttribute("titulo", titulo);
+				rd = request.getRequestDispatcher("/jsp/listarTodos.jsp"); //le digo la vista que quiero mostrar
+				rd.forward(request, response);
 				break;
 				
 			case "buscarPorNombre": //se invocará al controlador que haga la consulta por nombre,
 				                   //que obtendrá solo los clientes que coincidan con el nombre buscado
 				                  //esta petición redirige a otra página
 				titulo= "Resultado de la búsqueda por nombre";
+				request.setAttribute("titulo", titulo);
+				rd = request.getRequestDispatcher("/jsp/listarTodos.jsp");
+				rd.forward(request, response);
 				break;
 		}
 		
-		//tengo que redirigir hacia una vista jsp para mostrar los clientes
-		RequestDispatcher rd; //importo
-		//de alguna manera hay que enviarle a la vista el resultado de la consulta a la base de datos
-		rd = request.getRequestDispatcher("/jsp/listarTodos.jsp"); //le digo la vista que quiero mostrar
-		request.setAttribute("titulo", titulo);
-		request.setAttribute("iva", new Integer(21)); 
-		//meto el dato en el request con setAttribute y el new Integer es pq el dato tiene q ser tipo object
-		
-		rd.forward(request, response);
+		//si alguien va atrás o adelante por el navegador, se genera una petición get
 	}
 
 	/**
@@ -74,6 +72,7 @@ public class TiendaServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String action = request.getPathInfo().substring(1);
 		request.setCharacterEncoding("UTF-8");
+		RequestDispatcher rd; 
 		
 		switch(action){
 		case"altaCliente": // recuperar los datos tecleados en el formulario
@@ -84,6 +83,8 @@ public class TiendaServlet extends HttpServlet {
 							//invocará al controlador adecuado
 							DarAltaClienteControllerEjb controlador=new DarAltaClienteControllerEjb();
 							controlador.agregar(cliente);
+							rd = request.getRequestDispatcher("/index.html"); //lo redicionamos a index
+							rd.forward(request, response);
 							break;
 			
 			
