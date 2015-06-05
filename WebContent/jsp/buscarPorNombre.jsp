@@ -9,7 +9,7 @@
 </head>
 <body>
 
-<form method="get" action="${pageContext.request.contextPath}/Tienda/buscarPorNombre" name="buscarPorNombre"> 
+<form method="post" action="${pageContext.request.contextPath}/Tienda/buscarPorNombre" name="buscarPorNombre"> 
 <!-- enlace con # se queda en la misma página -->
     <fieldset>
     <label>Nombre:</label>
