@@ -10,8 +10,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import es.curso.controllers.EliminarController;
 import es.curso.controllers.ejb.BuscarPorNombreControllerEjb;
 import es.curso.controllers.ejb.DarAltaClienteControllerEjb;
+import es.curso.controllers.ejb.EliminarControllerEjb;
 import es.curso.controllers.ejb.ListarTodosControllerEjb;
 import es.curso.model.entity.Cliente;
 
@@ -66,6 +68,13 @@ public class TiendaServlet extends HttpServlet {
 				rd = request.getRequestDispatcher("/jsp/buscarPorNombre.jsp");
 				rd.forward(request, response);
 				break;
+			
+			case "eliminarPorId": //se redirigirá hacia el formulario buscar por id,
+                
+				rd = request.getRequestDispatcher("/jsp/eliminarPorId.jsp"); //estamos haciendo una redirección
+				rd.forward(request, response);
+				break;
+		
 	}
 		// Si Solicita otro case fuera de Switch mandamos a index
 		//si alguien va atrás o adelante por el navegador, se genera una petición get
@@ -110,6 +119,20 @@ public class TiendaServlet extends HttpServlet {
 							rd.forward(request, response);
 														
 							break;
+						
+		case "eliminarPorId": //estamos en la petición post, alguien tecleo en el formulario y quiere borrar
+			
+			//Recuperar el id tecleado, en el formulario
+			int id = Integer.parseInt(request.getParameter("id"));
+			//tenemos que llamar al controlador adecuado
+			EliminarController eliminarEjb = new EliminarControllerEjb();
+			eliminarEjb.eliminar(id);
+			
+			//Aquí en vez de rquest ya está hecho arriba comento 2 lineas y pongo:
+			response.sendRedirect("listarTodos");//es como volver a la hacer la petición get	
+			//ese listar todos, sería lo mismo que poner ("Ej15_GitHub/Tienda/listarTodos")
+			break;
+			
 						
 			
 		}

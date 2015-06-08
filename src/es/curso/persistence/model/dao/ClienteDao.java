@@ -12,4 +12,7 @@ public interface ClienteDao {  //he quitado class y he puesto interface
 	public void create(Cliente cliente);//creo método abstracto  y me importo la clase Cliente
 	
 	public ArrayList<Cliente> findAll();  //importo
+	public ArrayList<Cliente> searchByName(String name);
+	public void update (Cliente cliente);
+	public void delete (Integer id);
 }
