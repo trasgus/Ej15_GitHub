@@ -10,8 +10,43 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Listado de Cliente</title>
  <link rel="stylesheet" href="../css/estilos_formulario.css" />
+ 
+ <script type="text/javascript"></script>
+ <script type="text/javascript">
+ function enviar(boton){
+	 var formulario = document.getElementById("formul" +boton.name.substring(3));
+	 //alteramos el action de acuerdo al botón pulsado
+	 if(boton.value=="Actualizar")
+		 formulario.action="${pageContext.request.contextPath}/Tienda/actualizar";
+	  
+	 if(boton.value=="Eliminar")
+				 formulario.action="${pageContext.request.contextPath}/Tienda/eliminarPorId";
+				 formulario.submit();
+		
+ }
+ 
+ </script>
+ 
+ 
+ 
+ 
 </head>
 <body>
+   <a href="/Ej15_GitHub/Tienda/altaCliente">ALTA CLIENTE</a> <!-- Con esta ruta hacemos que se vaya al Servlet -->
+    <br/>
+    <a href="/Ej15_GitHub/Tienda/listarTodos">LISTAR TODOS</a> <!--nombre Proyecto/Servlet  -->
+    <!-- con# (se quedaria en la página donde está) 
+    con esta solicitud va al Servlet -->
+    <br/>
+    <a href="/Ej15_GitHub/Tienda/buscarPorNombre">BUSCAR POR NOMBRE</a>
+    <br/>
+      <a href="/Ej15_GitHub/Tienda/buscarPorId">BUSCAR POR ID</a>
+     <br/>
+    <!-- Esto es enlace a get pero al DAR A BORRAR es petición post -->
+    <a href="/Ej15_GitHub/Tienda/eliminarPorId">ELIMINAR CLIENTE POR ID</a>
+
+
+
 <h1><%=request.getAttribute("titulo") %></h1><!--recuperamos el titulo puesto antes en tiendaServlet con código java  -->
     <!--las jsp mezclan código html y java  -->
     <!-- Tabla html dinámicamente -->
@@ -37,13 +72,21 @@
             <th>DNI</th>
         </tr>
         <% for (Cliente c: clientes){ %>  <!-- ABRO EL FOR  El for es para recorrer el ArrayList pq la tabla es dinámica -->
-            <tr>
-                <td><%= c.getId() %></td>
-                <td><%= c.getNombres() %></td> <!-- con la referencia c imprime Nombres -->
-                <td><%= c.getApellidos() %></td>
-                <td><%= c.getDni() %></td>
-            </tr>
         
+        <form id= "formul<%= c.getId()%>" action="#" method="post" onsubmit="return false;">
+<%--         <form action="${pageContext.request.contextPath}/Tienda/eliminarPorId" method="post">
+ Hay una forma actual más fácil que con for action pero no en internet exploret 10 --%>  
+                <tr id="<%= c.getId()%>">
+                <td><input type="text" name="id" value="<%= c.getId() %>" ></td>
+                <td><input type="text" name="nombres" value="<%= c.getNombres() %>" /></td> <!-- con la referencia c imprime Nombres -->
+                <td><input type="text" name="apellidos" value="<%= c.getApellidos() %>"/></td>
+                <td><input type="text" name="dni" value="<%= c.getDni() %>"/></td>
+                <!--Aquí iría un formulario <form method= "post"> -->
+                <td><input id="btnSinBordes" type="submit" value="Eliminar" name="btn<%= c.getId()%>" onclick="enviar(this)"/></td>
+                <!-- Este ultimo botón es para diferenciar un eliminar de otro , y de ahí va al controlador de eliminar -->
+                <td><input id= "btnSinBordes" type="submit" value="Actualizar" name="btn<%= c.getId() %>" onclick="enviar(this);"/>
+            </tr>
+        </form>
         
         
         <% } %> <!-- CIERRO EL FOR . Cierra la } de esa manera pq es jsp-->

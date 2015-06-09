@@ -137,33 +137,7 @@ public class ClienteDaoJdbc implements ClienteDao{
 		}
 		
 	}
-    @Override
-	public void update(Cliente cliente){
-		
-	}
-	@Override
-	public void delete (Integer id){
-		
-		try {
-			//establecer conexión
-			abrirConexion();
-			//2.preparar las sentencias
-			PreparedStatement ps= cx.prepareStatement("DELETE FROM CLIENTE WHERE ID=?");
-				//2.1 Especificar lo que va en ?
-			ps.setInt(1, id); //en el interrogante uno poner lo que pone en el id
-			//3.Ejecutar LA SENTENCIA
-			ps.executeUpdate();
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}finally{
-			//4.Cerrar la conexión
-			cerrarConexion();
-		}
-		
-	}
-
+   
 	@Override
 	public ArrayList<Cliente> searchByName(String name) {
 		ArrayList<Cliente> clientes = new ArrayList<Cliente>();
@@ -172,6 +146,7 @@ public class ClienteDaoJdbc implements ClienteDao{
 			abrirConexion();
 			//  2. Preparar la sentencia sql parametrizada
 			PreparedStatement ps = cx.prepareStatement("SELECT * FROM CLIENTE WHERE nombres LIKE ?");
+			
 			//  2.1 Especificar lo que va en ?
 			ps.setString(1, "%" + name + "%");
 			// 3. ejecutar la query
@@ -196,5 +171,128 @@ public class ClienteDaoJdbc implements ClienteDao{
 			cerrarConexion();
 		}
 		return clientes;
+		
 	}
+	 @Override
+		public void update(Cliente cliente){
+		//	ArrayList<Cliente> clientes = new ArrayList<Cliente>();
+			try {
+				// 1.Establecer la conexion con la bd
+				abrirConexion();
+				//  2. Preparar la sentencia sql parametrizada
+				
+				PreparedStatement ps = cx.prepareStatement("UPDATE CLIENTE SET NOMBRES=?, APELLIDOS=?, DNI=? WHERE ID=? ");
+				//  2.1 Especificar lo que va en ?
+				ps.setString(1, cliente.getNombres());
+				ps.setString(2, cliente.getApellidos());
+				ps.setString(3, cliente.getDni());
+				ps.setInt(4,  cliente.getId());
+				// 3. ejecutar la sentencia
+			    ps.executeUpdate(); // como el play de Heidi
+			
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally{
+			// 4.Cerrar la conexion (con el finally siempre)
+				cerrarConexion();
+			}
+			
+		}
+		@Override
+		public void delete (Integer id){
+			
+			try {
+				//establecer conexión
+				abrirConexion();
+				//2.preparar las sentencias
+				PreparedStatement ps= cx.prepareStatement("DELETE FROM CLIENTE WHERE ID=?");
+					//2.1 Especificar lo que va en ?
+				ps.setInt(1, id); //en el interrogante uno poner lo que pone en el id
+				//3.Ejecutar LA SENTENCIA
+				ps.executeUpdate();
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally{
+				//4.Cerrar la conexión
+				cerrarConexion();
+			}
+			
+		}
+
+		@Override
+		public ArrayList<Cliente> searchById(String idABuscar) {
+			ArrayList<Cliente> clientes = new ArrayList<Cliente>();
+			try {
+				// 1.Establecer la conexion con la bd
+				abrirConexion();
+				//  2. Preparar la sentencia sql parametrizada
+				
+				PreparedStatement ps = cx.prepareStatement("SELECT * FROM CLIENTE WHERE id LIKE ?");
+				//  2.1 Especificar lo que va en ?
+				ps.setString(1, idABuscar );
+				// 3. ejecutar la query
+				ResultSet resultado = ps.executeQuery(); // como el play de Heidi
+				// 3.1 Pasar los datos que vienen de la bbdd (ResultSet) hacia el ArrayList<Cliente>
+				while(resultado.next()){
+					Cliente c = new Cliente();
+//					c.setId(id);
+//					c.setNombres(nombres);
+//					c.setApellidos(apellidos);
+//					c.setDni(dni);
+					c.setId(resultado.getInt("id"));
+					c.setNombres(resultado.getString("nombres"));//otra forma es darle el numeral pero no se recom
+					c.setApellidos(resultado.getString("apellidos"));
+					c.setDni(resultado.getString("dni"));
+					clientes.add(c);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally{
+			// 4.Cerrar la conexion (con el finally siempre)
+				cerrarConexion();
+			}
+			return clientes;
+			
+			
+		}
+
+		@Override
+		public ArrayList<Cliente> actualizarById(String idABuscar) {
+			ArrayList<Cliente> clientes = new ArrayList<Cliente>();
+			try {
+				// 1.Establecer la conexion con la bd
+				abrirConexion();
+				//  2. Preparar la sentencia sql parametrizada
+				
+				PreparedStatement ps = cx.prepareStatement("UPDATE * FROM CLIENTE WHERE id LIKE ?");
+				//  2.1 Especificar lo que va en ?
+				ps.setString(1, idABuscar );
+				// 3. ejecutar la query
+				ResultSet resultado = ps.executeQuery(); // como el play de Heidi
+				// 3.1 Pasar los datos que vienen de la bbdd (ResultSet) hacia el ArrayList<Cliente>
+				while(resultado.next()){
+					Cliente c = new Cliente();
+//					c.setId(id);
+//					c.setNombres(nombres);
+//					c.setApellidos(apellidos);
+//					c.setDni(dni);
+					c.setId(resultado.getInt("id"));
+					c.setNombres(resultado.getString("nombres"));//otra forma es darle el numeral pero no se recom
+					c.setApellidos(resultado.getString("apellidos"));
+					c.setDni(resultado.getString("dni"));
+					clientes.add(c);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally{
+			// 4.Cerrar la conexion (con el finally siempre)
+				cerrarConexion();
+			}
+			return clientes;
+			
+		}
+
 }

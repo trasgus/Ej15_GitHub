@@ -10,7 +10,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import es.curso.controllers.ActualizarClienteController;
 import es.curso.controllers.EliminarController;
+import es.curso.controllers.ejb.ActualizarClienteControllerEjb;
+import es.curso.controllers.ejb.BuscarPorIdControllerEjb;
 import es.curso.controllers.ejb.BuscarPorNombreControllerEjb;
 import es.curso.controllers.ejb.DarAltaClienteControllerEjb;
 import es.curso.controllers.ejb.EliminarControllerEjb;
@@ -68,6 +71,12 @@ public class TiendaServlet extends HttpServlet {
 				rd = request.getRequestDispatcher("/jsp/buscarPorNombre.jsp");
 				rd.forward(request, response);
 				break;
+				
+			case "buscarPorId": //se redirigirá hacia el formulario buscar por id, otro caso de uso
+                
+				rd = request.getRequestDispatcher("/jsp/buscarPorId.jsp");
+				rd.forward(request, response);
+				break;
 			
 			case "eliminarPorId": //se redirigirá hacia el formulario buscar por id,
                 
@@ -119,7 +128,28 @@ public class TiendaServlet extends HttpServlet {
 							rd.forward(request, response);
 														
 							break;
+		case "buscarPorId":
+			// recuperar la cadena tecleada en el formulario
+			String idABuscar = request.getParameter("idBuscar");
+			
+			// llamar al controlador adecuado
+			BuscarPorIdControllerEjb contBuscarPorId = new BuscarPorIdControllerEjb();
+			ArrayList<Cliente> result = contBuscarPorId.buscarPorId(idABuscar);
+			// meter en el request el arraylist de respuesta
+			request.setAttribute("clientes", result);
+			
+			// mandarle un titulo diferente
+			request.setAttribute("titulo", "Búsqueda por " + idABuscar);
+			
+			// y redirigir hacia el jsp ListarTodos
+			rd = request.getRequestDispatcher("/jsp/formActualizar.jsp");
+			rd.forward(request, response);
+										
+			break;
 						
+							
+							
+							
 		case "eliminarPorId": //estamos en la petición post, alguien tecleo en el formulario y quiere borrar
 			
 			//Recuperar el id tecleado, en el formulario
@@ -131,6 +161,23 @@ public class TiendaServlet extends HttpServlet {
 			//Aquí en vez de rquest ya está hecho arriba comento 2 lineas y pongo:
 			response.sendRedirect("listarTodos");//es como volver a la hacer la petición get	
 			//ese listar todos, sería lo mismo que poner ("Ej15_GitHub/Tienda/listarTodos")
+			break;
+			
+		case "actualizar": //recuperar los datos del formulario
+			int idCliente =  Integer.parseInt(request.getParameter("id"));
+		    String nombresCliente = request.getParameter("nombres");
+		    String apellidosCliente = request.getParameter("apellidos");
+			String dniCliente = request.getParameter("dni");
+			Cliente clienteAct = new Cliente(idCliente,nombresCliente,apellidosCliente, dniCliente);
+			ActualizarClienteController actualizarEjb = new ActualizarClienteControllerEjb();
+
+		//	ActualizarClienteControllerEjb controladorAct=new ActualizarClienteControllerEjb();
+			actualizarEjb.actualizar(clienteAct);
+			response.sendRedirect("listarTodos");
+			
+			
+		//	rd = request.getRequestDispatcher("/listarTodos.jsp"); 
+		//	rd.forward(request, response);
 			break;
 			
 						
