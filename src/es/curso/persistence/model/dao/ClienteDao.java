@@ -17,5 +17,5 @@ public interface ClienteDao {  //he quitado class y he puesto interface
 	public void delete (Integer id);
 
 	public ArrayList<Cliente> searchById(String idABuscar);
-	public ArrayList<Cliente> actualizarById(String idABuscar);
+	
 }

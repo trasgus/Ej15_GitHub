@@ -22,8 +22,10 @@
      <br/>
     <!-- Esto es enlace a get pero al DAR A BORRAR es petición post -->
     <a href="/Ej15_GitHub/Tienda/eliminarPorId">ELIMINAR CLIENTE POR ID</a>
-    <br/>
-    
+     <br/>
+     <a href="/Ej15_GitHub/Tienda/editar">EDITAR</a>
+     
+     
     <form method="post" action="${pageContext.request.contextPath}/Tienda/actualizar" name="actualizar"> 
 <!-- enlace con # se queda en la misma página -->
     <fieldset>

@@ -255,44 +255,7 @@ public class ClienteDaoJdbc implements ClienteDao{
 				cerrarConexion();
 			}
 			return clientes;
-			
-			
-		}
-
-		@Override
-		public ArrayList<Cliente> actualizarById(String idABuscar) {
-			ArrayList<Cliente> clientes = new ArrayList<Cliente>();
-			try {
-				// 1.Establecer la conexion con la bd
-				abrirConexion();
-				//  2. Preparar la sentencia sql parametrizada
-				
-				PreparedStatement ps = cx.prepareStatement("UPDATE * FROM CLIENTE WHERE id LIKE ?");
-				//  2.1 Especificar lo que va en ?
-				ps.setString(1, idABuscar );
-				// 3. ejecutar la query
-				ResultSet resultado = ps.executeQuery(); // como el play de Heidi
-				// 3.1 Pasar los datos que vienen de la bbdd (ResultSet) hacia el ArrayList<Cliente>
-				while(resultado.next()){
-					Cliente c = new Cliente();
-//					c.setId(id);
-//					c.setNombres(nombres);
-//					c.setApellidos(apellidos);
-//					c.setDni(dni);
-					c.setId(resultado.getInt("id"));
-					c.setNombres(resultado.getString("nombres"));//otra forma es darle el numeral pero no se recom
-					c.setApellidos(resultado.getString("apellidos"));
-					c.setDni(resultado.getString("dni"));
-					clientes.add(c);
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}finally{
-			// 4.Cerrar la conexion (con el finally siempre)
-				cerrarConexion();
-			}
-			return clientes;
-			
+						
 		}
 
 }

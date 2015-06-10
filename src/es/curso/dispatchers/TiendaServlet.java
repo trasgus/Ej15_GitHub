@@ -83,6 +83,12 @@ public class TiendaServlet extends HttpServlet {
 				rd = request.getRequestDispatcher("/jsp/eliminarPorId.jsp"); //estamos haciendo una redirección
 				rd.forward(request, response);
 				break;
+				
+			case "editar": 
+				
+				rd = request.getRequestDispatcher("/jsp/editar.jsp"); //estamos haciendo una redirección
+				rd.forward(request, response);
+				break;
 		
 	}
 		// Si Solicita otro case fuera de Switch mandamos a index

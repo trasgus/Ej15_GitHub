@@ -19,6 +19,7 @@
      <br/>
     <!-- Esto es enlace a get pero al DAR A BORRAR es petición post -->
     <a href="/Ej15_GitHub/Tienda/eliminarPorId">ELIMINAR CLIENTE POR ID</a>
+     <br/>
 
 
 <form method="post" action="${pageContext.request.contextPath}/Tienda/buscarPorId" name="buscarPorId"> 
