@@ -44,15 +44,21 @@ public class ClienteDaoJdbc implements ClienteDao{
 				ps.setString(4, cliente.getDni());
 /*	  3. Ejecutar la sentencia -sql- */
 				
-				ps.executeUpdate(); 
+				ps.executeUpdate();  //executeUpdate es como play en la consola
 				/*  Es lo mismo que dar al play en heidi(cliente ligero) 
 				   Se usa para las instrucciones sql como: insert, delete, update
 				   Esta instrucción devulve como resultado el número de registros (o filas) afectadas.
 	  3.1 Hacer el commit 
 	                   */
-				
+		cx.commit();		
 
 		} catch (SQLException e) {
+			try {
+				cx.rollback();  //para si sucede algo raro, hago un rollback luego try catch con ayuda de eclipse
+			} catch (SQLException e1) {
+				
+				e1.printStackTrace();
+			}
 			
 			e.printStackTrace();
 		}
@@ -114,8 +120,8 @@ public class ClienteDaoJdbc implements ClienteDao{
 			cx = DriverManager.getConnection("jdbc:mysql://localhost:3306/Tienda",  //añado otro try catch con la ayuda de eclipse
 					"rootTienda",
 					"rootTienda");
-	/* 3. Iniciar el autoCommit en false */
-		//	cx.setAutoCommit(false);
+	/* 3. Iniciar el autoCommit en false  es para gestionar TRANSACIONES*/
+			cx.setAutoCommit(false); // al tener el autoCommit en falso no se ven si doy de alta uno hasta que hago commit
 
 			
 		} catch (ClassNotFoundException e) {
@@ -189,9 +195,17 @@ public class ClienteDaoJdbc implements ClienteDao{
 				ps.setInt(4,  cliente.getId());
 				// 3. ejecutar la sentencia
 			    ps.executeUpdate(); // como el play de Heidi
+			    //3.1. hacer el commit
+			    	cx.commit();
 			
 				
 			} catch (SQLException e) {
+				try {
+					cx.rollback();
+				} catch (SQLException e1) {
+					
+					e1.printStackTrace();
+				}
 				e.printStackTrace();
 			}finally{
 			// 4.Cerrar la conexion (con el finally siempre)
@@ -211,9 +225,17 @@ public class ClienteDaoJdbc implements ClienteDao{
 				ps.setInt(1, id); //en el interrogante uno poner lo que pone en el id
 				//3.Ejecutar LA SENTENCIA
 				ps.executeUpdate();
+				//3.1 hacer el commit
+				cx.commit();
 				
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
+				try {
+					cx.rollback();
+				} catch (SQLException e1) {
+				
+					e1.printStackTrace();
+				}
+				
 				e.printStackTrace();
 			}finally{
 				//4.Cerrar la conexión
