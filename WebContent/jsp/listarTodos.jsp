@@ -4,15 +4,8 @@
 <%@page import="java.time.LocalDateTime"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<!-- dtd son las reglas para construir un html 4.01 en la página lo vemos lo que puede llevar dentro cada etiqueta -->
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Listado de Cliente</title>
-<link rel="stylesheet" href="../css/estilos_formulario.css" />
 
-<script type="text/javascript"></script>
+<%@ include file="../template/header.jsp" %>  <!-- include es para incluir un trozo de código (en este caso el header.jsp) -->
 <script type="text/javascript">
 	function enviar(boton) {
 		var formulario = document.getElementById("formul"
@@ -25,7 +18,7 @@
 			formulario.action = "${pageContext.request.contextPath}/Tienda/eliminarPorId";
 
 		if (boton.value == "Editar")
-			formulario.action = "${pageContext.request.contextPath}/Tienda/editar";
+			formulario.action = "${pageContext.request.contextPath}/Tienda/listarTodos";
 		formulario.submit();
 
 	}
@@ -34,24 +27,8 @@
 
 
 
-</head>
-<body>
-	<a href="/Ej15_GitHub/Tienda/altaCliente">ALTA CLIENTE</a>
-	<!-- Con esta ruta hacemos que se vaya al Servlet -->
-	<br />
-	<a href="/Ej15_GitHub/Tienda/listarTodos">LISTAR TODOS</a>
-	<!--nombre Proyecto/Servlet  -->
-	<!-- con# (se quedaria en la página donde está) 
-    con esta solicitud va al Servlet -->
-	<br />
-	<a href="/Ej15_GitHub/Tienda/buscarPorNombre">BUSCAR POR NOMBRE</a>
-	<br />
-	<a href="/Ej15_GitHub/Tienda/buscarPorId">BUSCAR POR ID</a>
-	<br />
-	<!-- Esto es enlace a get pero al DAR A BORRAR es petición post -->
-	<a href="/Ej15_GitHub/Tienda/eliminarPorId">ELIMINAR CLIENTE POR ID</a>
-	<br />
-	<a href="/Ej15_GitHub/Tienda/editar">EDITAR</a>
+
+
 
 
 
@@ -125,7 +102,4 @@
 		<!-- Las siguiente tr se construyen dinámicamente, usando instrucciones java embebidas
       la cabecera que es la anterior no es dinámica, es fija -->
 	</table>
-
-
-</body>
-</html>
+	<%@ include file="../template/footer.jsp" %>

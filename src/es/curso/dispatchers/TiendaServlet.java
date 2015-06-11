@@ -48,7 +48,7 @@ public class TiendaServlet extends HttpServlet {
 		                      //Hace rediciona a otras páginas
 		switch(action){
 			case "altaCliente": //se debe redirigir hacia el formulario altaCliente
-				                rd = request.getRequestDispatcher("/archivos_html/altaClienteView.html");
+				                rd = request.getRequestDispatcher("/jsp/altaClienteView.jsp");
 				                // al subir a web el servidor de rutas automaticamente  ???
 				                rd.forward(request, response);
 				                break;
@@ -84,11 +84,11 @@ public class TiendaServlet extends HttpServlet {
 				rd.forward(request, response);
 				break;
 				
-			case "editar": 
+		//	case "editar": 
 				
-				rd = request.getRequestDispatcher("/jsp/editar.jsp"); //estamos haciendo una redirección
-				rd.forward(request, response);
-				break;
+		//		rd = request.getRequestDispatcher("/jsp/editar.jsp"); //estamos haciendo una redirección
+		//		rd.forward(request, response);
+		//		break;
 		
 	}
 		// Si Solicita otro case fuera de Switch mandamos a index
@@ -112,7 +112,7 @@ public class TiendaServlet extends HttpServlet {
 							//invocará al controlador adecuado
 							DarAltaClienteControllerEjb controlador=new DarAltaClienteControllerEjb();
 							controlador.agregar(cliente);
-							rd = request.getRequestDispatcher("/index.html"); //lo redicionamos a index
+							rd = request.getRequestDispatcher("/index.jsp"); //lo redicionamos a index
 							rd.forward(request, response);
 							break;
 		
