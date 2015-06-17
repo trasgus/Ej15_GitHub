@@ -9,16 +9,20 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import es.curso.controllers.ActualizarClienteController;
 import es.curso.controllers.EliminarController;
+import es.curso.controllers.LoginController;
 import es.curso.controllers.ejb.ActualizarClienteControllerEjb;
 import es.curso.controllers.ejb.BuscarPorIdControllerEjb;
 import es.curso.controllers.ejb.BuscarPorNombreControllerEjb;
 import es.curso.controllers.ejb.DarAltaClienteControllerEjb;
 import es.curso.controllers.ejb.EliminarControllerEjb;
 import es.curso.controllers.ejb.ListarTodosControllerEjb;
+import es.curso.controllers.ejb.LoginControllerEjb;
 import es.curso.model.entity.Cliente;
+import es.curso.model.entity.Usuario;
 
 /**
  * Servlet implementation class TiendaServlet
@@ -47,6 +51,11 @@ public class TiendaServlet extends HttpServlet {
 		RequestDispatcher rd; //importo
 		                      //Hace rediciona a otras páginas
 		switch(action){
+			case "login":
+				 rd = request.getRequestDispatcher("../login.jsp");
+	             rd.forward(request, response);
+	             break;
+		
 			case "altaCliente": //se debe redirigir hacia el formulario altaCliente
 				                rd = request.getRequestDispatcher("/jsp/altaClienteView.jsp");
 				                // al subir a web el servidor de rutas automaticamente  ???
@@ -104,6 +113,37 @@ public class TiendaServlet extends HttpServlet {
 		RequestDispatcher rd = null; 
 		
 		switch(action){
+		
+		case "login": //recuperar los datos del formulario
+			String userName = request.getParameter("userName");
+			String password = request.getParameter("password");
+				//invocar al controlador adecuado,
+			LoginController loginController = new LoginControllerEjb();
+			Usuario usuario = loginController.login(userName, password);
+		       //que le encargamos que nos diga si el usuario existe o no en la base de datos
+			   //si el usuario existe meter los datos en ese usuario en la sesión
+			if(usuario!=null){ //si usuario es diferente de null se mete en la sesión
+				//HttpSession para guardar en una sesión los datos del usuario, es una variable
+				HttpSession session = request.getSession(false); //para cerrar la sesión que estuviera abierta
+				session = request.getSession(true); //vuelvo a crear la sesión
+				
+				//aqui tengo que rellenar los datos del usuario
+				String nombreCompleto = usuario.getNombres() + " " + usuario.getApellidos();
+				session.setAttribute("nombreCompleto", nombreCompleto);
+				session.setAttribute("userName", usuario.getUserName());
+				//al encontrar usuario ya puede ver el menu de index
+				rd = request.getRequestDispatcher("/index.jsp"); //una vez ejecutado se va al index
+				rd.forward(request, response);
+				
+			}else{
+				//si el usuario no existe redirigir hacia login otra vez
+				response.sendRedirect("login");
+				
+			}
+			  
+			break;
+
+		
 		case"altaCliente": // recuperar los datos tecleados en el formulario
 							String nombre = request.getParameter("nombre");
 							String apellido = request.getParameter("apellido");
@@ -185,6 +225,8 @@ public class TiendaServlet extends HttpServlet {
 		//	rd = request.getRequestDispatcher("/listarTodos.jsp"); 
 		//	rd.forward(request, response);
 			break;
+			
+		
 			
 						
 			
