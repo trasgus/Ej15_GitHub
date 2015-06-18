@@ -8,21 +8,45 @@
 <title>Insert title here</title>
 </head>
 <body>
-    <header>
 
-        <a href="/Ej15_GitHub/Tienda/altaCliente">ALTA CLIENTE</a> 
+<!--  Para navegar por el menú y con flechas atrás adelante -->
+<%
+response.setHeader("Cache-Control", "no-cache"); //HTTP 1.1. //para borrar la cache desde aqui, con código
+response.setHeader("Cache-Control", "no-store");//Directs caches not to store the
+response.setDateHeader("Expires", 0); //causes the proxy cache to see the page as 
+response.setHeader("Pragma", "no-cache"); //HTTP 1.0.backward compatibility
+%>
+
+
+    <header>
+    <% HttpSession miSession = request.getSession(); %> <!-- hago referencia y almaceno lo que tengo -->
+    <% if(miSession.getAttribute("userName")!=null){ %> <!--  la manera de preguntar si el atributo está o no está -->
+    	
+  
+
+    <!-- Este es igual que lo de abajo  <a href="/Ej15_GitHub/Tienda/altaCliente">ALTA CLIENTE</a> --> 
+    <a href="${pageContext.request.contextPath}/Tienda/altaCliente">ALTA CLIENTE</a>
     <br/>
-    <a href="/Ej15_GitHub/Tienda/listarTodos">LISTAR TODOS</a> 
+    <a href="${pageContext.request.contextPath}/Tienda/listarTodos">LISTAR TODOS</a> 
    
     <br/>
-    <a href="/Ej15_GitHub/Tienda/buscarPorNombre">BUSCAR POR NOMBRE</a>
+    <a href="${pageContext.request.contextPath}/Tienda/buscarPorNombre">BUSCAR POR NOMBRE</a>
     <br/>
-      <a href="/Ej15_GitHub/Tienda/buscarPorId">BUSCAR POR ID</a>
+      <a href="${pageContext.request.contextPath}/Tienda/buscarPorId">BUSCAR POR ID</a>
      <br/>
    
-    <a href="/Ej15_GitHub/Tienda/eliminarPorId">ELIMINAR CLIENTE POR ID</a>
+    <a href="${pageContext.request.contextPath}/Tienda/eliminarPorId">ELIMINAR CLIENTE POR ID</a>
      <br/>
-    <a href="/Ej15_GitHub/Tienda/listarTodos">EDITAR</a>
+    <a href="${pageContext.request.contextPath}/Tienda/listarTodos">EDITAR</a>
       <br/>
-    <a href="/Ej15_GitHub/Tienda/login">LOGIN</a>
+    <a href="${pageContext.request.contextPath}/Tienda/logout">LOGOUT</a> <!-- estás dentro y te da la opción de salir -->
+      <br/>
+      <p> Usuario: <%=miSession.getAttribute("userName") %></p> <!-- está dentro del if pq ya está logeado. Dentro del código java si empiezo con = no termina en ;-->
+      <p> !Hola! <%=miSession.getAttribute("nombreCompleto") %></p> <!-- mete código java pq coge un valor por medio del get y es código java -->
+      <p> Máximo periodo de Inactividad: <%=miSession.getMaxInactiveInterval() %> segundos </p> <!-- Periodo máximo de inactividad -->
     </header>
+    
+     <% }else  
+        { %>
+      <a href="${pageContext.request.contextPath}/Tienda/login">LOGIN</a> <!-- estas fuera y te da la opción de entrar -->
+      <% } %>

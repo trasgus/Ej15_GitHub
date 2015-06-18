@@ -48,7 +48,7 @@ public class UsuarioDaoJdbc implements UsuarioDao {
 			cerrarConexion();
 		}
 		
-		return null;
+		return usuario;
 	}
 
 	private  void abrirConexion(){
